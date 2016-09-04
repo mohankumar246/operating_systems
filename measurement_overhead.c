@@ -23,7 +23,7 @@ int main(int agrc, char *argv[])
 		  : "=r" (cycles_high0), "=r" (cycles_low0)
 		  :: "%rax", "%rbx", "%rcx", "%rdx");
 
-    /* code to measure */
+    /* no code here as we are just looking at timing measurement overhead */
 
     asm volatile ("rdtscp\n\t"
 		  "mov %%edx, %0\n\t"
