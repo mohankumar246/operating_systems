@@ -108,6 +108,8 @@ int main(int agrc, char *argv[])
 	printf("high0 = %d, high1 = %d, low0 = %d, low1 = %d\n",cycles_high0,cycles_high1,cycles_low0,cycles_low1);
 	printf("cycles taken without loop = %llu clock cycles\n",cycles_with_loop);
 
+	printf("Thus the LOOP OVERHEAD = %llu clock cycles\n",(cycles_with_loop - cycles_without_loop));
+
 
 }
 
