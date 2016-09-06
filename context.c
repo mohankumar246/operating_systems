@@ -43,7 +43,7 @@ int main(int agrc, char *argv[])
 		uint64_t start;
 		close(pipefd[1]);
 		close(pipefd_2[0]);
-		int i=0,j;
+		int i=0,j,a;
 		while(i<10)
 		{
 			asm volatile ("CPUID\n\t"
@@ -54,9 +54,8 @@ int main(int agrc, char *argv[])
 			
 			start = ( ((uint64_t)cycles_high << 32) | cycles_low );
 			printf("child %d %ld\n",j,start);
-			read(pipefd[0],&j,sizeof(int));
-
-			write(pipefd_2[1],&i,sizeof(int));
+			a =read(pipefd[0],&j,sizeof(int));
+			a =write(pipefd_2[1],&i,sizeof(int));
 			i++;
 		}
 	} //Parent
@@ -66,10 +65,10 @@ int main(int agrc, char *argv[])
 		uint64_t end;
 		close(pipefd[0]);
 		close(pipefd_2[1]);
-		int i=0;
+		int i=0,a;
 		while(i<10)
 		{
-			write(pipefd[1],&i,sizeof(int));
+			a = write(pipefd[1],&i,sizeof(int));
 
 			asm volatile("RDTSCP\n\t"
 					"mov %%edx, %0\n\t"
@@ -79,7 +78,7 @@ int main(int agrc, char *argv[])
 			end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 );
 			printf("parent %d %ld\n",i,end);
 
-			read(pipefd_2[0],&i,sizeof(int));
+			a= read(pipefd_2[0],&i,sizeof(int));
 			i++;
 		}
 	}		
