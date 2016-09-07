@@ -15,6 +15,7 @@ int main(int agrc, char *argv[])
 	int child_id;
 	int pipefd[2],pipefd_2[2];	
 
+	unsigned start_h,start_l,end_h,end_l;
 
 	if(pipe(pipefd) == -1)
 	{
@@ -28,8 +29,24 @@ int main(int agrc, char *argv[])
 		exit(0);
 	}
 
+	asm volatile ("CPUID\n\t"
+		      "RDTSC\n\t"
+		      "mov %%edx, %0\n\t"
+		      "mov %%eax, %1\n\t": "=r" (start_h), "=r" (start_l)::
+		      "%rax", "%rbx", "%rcx", "%rdx");
+
 	child_id = fork();
 	
+	asm volatile ("CPUID\n\t"
+		      "RDTSC\n\t"
+		      "mov %%edx, %0\n\t"
+		      "mov %%eax, %1\n\t": "=r" (end_h), "=r" (end_l)::
+		      "%rax", "%rbx", "%rcx", "%rdx");
+
+	uint64_t total_cycles = (((uint64_t)end_h << 32) | end_l )-(((uint64_t)start_h << 32) | start_l);
+
+	printf("Total cycles process creation %ld\n",total_cycles);
+
 	if(child_id == -1)
 	{
 		perror("fork");
