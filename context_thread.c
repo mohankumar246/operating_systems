@@ -69,12 +69,18 @@ void* child_thread(void *param)
 
 }
 
+
+void* empty_thread(void *param)
+{
+
+}
 int main(int agrc, char *argv[])
 {
 
         int child_id;
 	pipe_args pipe_pc_cp;
-	pthread_t thread0,thread1;
+	pthread_t thread0,thread1,thread_empty;
+	unsigned start_h,start_l,end_h,end_l;
 
 
         if(pipe(pipe_pc_cp.pipe_pc) == -1)
@@ -88,6 +94,24 @@ int main(int agrc, char *argv[])
                 perror("pipe");
                 exit(0);
         }
+	
+        asm volatile ("CPUID\n\t"
+                      "RDTSC\n\t"
+                      "mov %%edx, %0\n\t"
+                      "mov %%eax, %1\n\t": "=r" (start_h), "=r" (start_l)::
+                      "%rax", "%rbx", "%rcx", "%rdx");
+
+	pthread_create(&thread_empty, NULL,empty_thread,&child_id))
+
+        asm volatile ("CPUID\n\t"
+                      "RDTSC\n\t"
+                      "mov %%edx, %0\n\t"
+                      "mov %%eax, %1\n\t": "=r" (end_h), "=r" (end_l)::
+                      "%rax", "%rbx", "%rcx", "%rdx");
+
+        uint64_t total_cycles = (((uint64_t)end_h << 32) | end_l )-(((uint64_t)start_h << 32) | start_l);
+
+        printf("Total cycles s creation %ld\n",total_cycles);
 	
 	if(pthread_create(&thread0, NULL, parent_thread,&pipe_pc_cp))
 	{
