@@ -5,10 +5,10 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <sched.h>
-#include <preempt.h>
+//#include <preempt.h>
 #include <sys/syscall.h>
 #include <time.h>
-#include <asm/cachectl.h>
+//#include <asm/cachectl.h>
 
 int main(int agrc, char *argv[])
 {
@@ -21,7 +21,7 @@ int main(int agrc, char *argv[])
 	char test_array[2048];
 	char test;
 
-	int w = cacheflush();  // correct it 
+	//int w = cacheflush();  // correct it 
 
 	//test_array = (char*) malloc(2048*sizeof(char));
 
@@ -51,7 +51,7 @@ int main(int agrc, char *argv[])
    	end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
 
 		//printf("high0 = %d, high1 = %d, low0 = %d, low1 = %d\n",cycles_high0,cycles_high1,cycles_low0,cycles_low1);
-		printf("write test array %d time = %llu clock cycles\n",test_array,(end-start));
+		printf("write test array %x time = %llu clock cycles\n",test_array,(end-start));
 
 
 		asm volatile ("cpuid\n\t"
@@ -76,7 +76,7 @@ int main(int agrc, char *argv[])
    	end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
 
 		//printf("high0 = %d, high1 = %d, low0 = %d, low1 = %d\n",cycles_high0,cycles_high1,cycles_low0,cycles_low1);
-		printf("read test array %d time = %llu clock cycles\n",test_array,(end-start));
+		printf("read test array %x time = %llu clock cycles\n",test_array,(end-start));
 
 		//test_array++;
 
