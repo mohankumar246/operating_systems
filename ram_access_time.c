@@ -10,9 +10,10 @@
 #include <time.h>
 //#include <sys/cachectl.h>
 
-#define MAX_SIZE 1048576  // 1MB
+#define MAX_SIZE 16777216 // 8MB
 //#define MAX_SIZE 16384  // 32KB
 
+volatile char test_array[MAX_SIZE];
 int main(int agrc, char *argv[])
 {
 	unsigned cycles_high0; 
@@ -21,12 +22,16 @@ int main(int agrc, char *argv[])
 	unsigned cycles_low1; 
 	uint64_t start,end;
 
-	volatile char test_array[1048576];
 	char test;
-	register int i;
+	register uint64_t i;
 	uint64_t size, stride;
 	uint64_t sum;
+	//int result;
 
+	//cpu_set_t mask;
+	////sched::CPU_ZERO(&mask);
+	//CPU_SET(0,&mask);
+	//result = sched_setaffinity(0,sizeof(mask),&mask);
 	sum = 0;
 
 
@@ -39,7 +44,7 @@ int main(int agrc, char *argv[])
 	//	test_array[i] = 0;
 	//}
 
-	for(stride = 1; stride<16; stride = stride*2) 
+	for(stride = 1; stride<=64; stride = stride*2) 
 	{
 		printf("\n--------------------stride = %d----------------------\n",stride);
 		for(size = 128; size<=MAX_SIZE; size = size*2)
