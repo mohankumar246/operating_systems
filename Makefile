@@ -9,7 +9,7 @@ bandwidth: bandwidth.c
 	objdump -D bandwidth > bandwidth.dump
 
 context_thread: context_thread.c
-	$(CC) -g context.c -pthread -o context_thread
+	$(CC) -g context_thread.c -pthread -o context_thread -lm
 	objdump -D context_thread > context_thread.dump
 clean:
 	rm -f context context_thread measure syscall procedure_call ram_access_time page_fault bandwidth *.dump
