@@ -22,16 +22,26 @@ int main(int agrc, char *argv[])
 	unsigned cycles_low1; 
 	uint64_t start,end;
 
-	char test;
+	volatile char test;
 	register uint64_t i;
 	uint64_t size, stride;
 	uint64_t sum;
 	//int result;
 
+	//Icache warmup
+	asm volatile ("cpuid\n\t"
+		  "rdtsc\n\t"
+		  "mov %%edx, %0\n\t"
+		  "mov %%eax, %1\n\t"
+		  : "=r" (cycles_high0), "=r" (cycles_low0)
+		  :: "%rax", "%rbx", "%rcx", "%rdx");
+
 	//cpu_set_t mask;
 	////sched::CPU_ZERO(&mask);
 	//CPU_SET(0,&mask);
 	//result = sched_setaffinity(0,sizeof(mask),&mask);
+	sum = getpagesize();
+	printf("page size = %llu\n",sum);
 	sum = 0;
 
 
@@ -43,6 +53,8 @@ int main(int agrc, char *argv[])
 	//{
 	//	test_array[i] = 0;
 	//}
+	
+	test = 'b';
 
 	for(stride = 1; stride<=64; stride = stride*2) 
 	{
@@ -62,7 +74,7 @@ int main(int agrc, char *argv[])
 			  						: "=r" (cycles_high0), "=r" (cycles_low0)
 			  						:: "%rax", "%rbx", "%rcx", "%rdx");
 
-				test_array[i] = 'b';
+				test_array[i] = test;
 
 				asm volatile ("rdtscp\n\t"
 		  	  						"mov %%edx, %0\n\t"
@@ -74,10 +86,20 @@ int main(int agrc, char *argv[])
    			end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
 				//printf("size = %d writing i=%d in time = %llu clock cycles\n",size, i,(end-start));
 				sum = sum + (end-start);
+				if(test_array[i] == 'Z')
+				{
+					printf("bug found");
+				}
+				else
+				{
+					test++;
+					if(test == 'z')
+						test = 'a';
+				}
 
 			}
 			sum = ((sum*stride) / size);
-			printf("size = %d in avg time = %llu clock cycles\n",size,sum);
+			printf("test = %x size = %d in avg time = %llu clock cycles\n",test,size,sum);
 			sum =0;
 
 

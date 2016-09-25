@@ -20,6 +20,14 @@ int main(int agrc, char *argv[])
 	volatile int i;
 
 	sum = 0;
+	//Icache warmup
+	asm volatile ("cpuid\n\t"
+		  "rdtsc\n\t"
+		  "mov %%edx, %0\n\t"
+		  "mov %%eax, %1\n\t"
+		  : "=r" (cycles_high0), "=r" (cycles_low0)
+		  :: "%rax", "%rbx", "%rcx", "%rdx");
+
 
 	//preempt_disable();
 	for(i = 0; i<1000; i++)
