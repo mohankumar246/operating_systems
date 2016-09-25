@@ -22,8 +22,8 @@ int main(int agrc, char *argv[])
     int pipefd[2],pipefd_2[2];    
 
     register unsigned start_h,start_l,end_h,end_l,i;
-    uint64_t a_proc_cycles[ITER],sum_proc_cycles=0;
-    uint64_t a_cont_cycles[ITER],sum_cont_cycles=0;
+    uint64_t a_proc_cycles[ITER];
+    uint64_t a_cont_cycles[ITER];
     uint64_t a_cont_cycles_temp[ITER];
     uint64_t a_proc_cycles_temp[ITER];
     uint64_t mean_proc_cycles=0,var_proc_cycles=0;
@@ -154,8 +154,8 @@ int main(int agrc, char *argv[])
 	    mean_proc_cycles /= (ITER);//-1);
 	    mean_cont_cycles /= (ITER);//-1);
 
-		printf("\nMean Cycles Proc %ld",mean_proc_cycles);
-		printf("\nMean Cycles Cont %ld",mean_cont_cycles);
+	    printf("\nMean Cycles Proc %ld",mean_proc_cycles);
+            printf("\nMean Cycles Cont %ld",mean_cont_cycles);
 	    for(int i =0; i< ITER; i++)
 	    {
 		     var_proc_cycles += ((a_proc_cycles[i] - mean_proc_cycles)*(a_proc_cycles[i] - mean_proc_cycles));
