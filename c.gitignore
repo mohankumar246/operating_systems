@@ -1,6 +1,0 @@
-touch obj/.placeholder
-git add -f obj/.placeholder
-
-touch dump/.placeholder
-git add -f dump/.placeholder
-
