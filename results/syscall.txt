@@ -1,1 +1,1 @@
-problem in opening
+syscall dup overhead time = 2300 clock cycles
