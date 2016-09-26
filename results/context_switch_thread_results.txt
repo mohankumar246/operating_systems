@@ -1,0 +1,5 @@
+
+Mean Cycles Thrd 15662
+Mean Cycles Cont 3167
+Mean time for thrd creation 0.000009 s SDeviation 0.000015 iteratios 20
+Mean time for context switch 0.000002 s SDeviation 0.000000 iteratios 20

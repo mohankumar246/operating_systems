@@ -1,0 +1,141 @@
+page size = 4096
+
+--------------------stride = 1----------------------
+test = 65 size = 128 in avg time = 32 clock cycles
+test = 6b size = 256 in avg time = 32 clock cycles
+test = 77 size = 512 in avg time = 32 clock cycles
+test = 76 size = 1024 in avg time = 33 clock cycles
+test = 74 size = 2048 in avg time = 33 clock cycles
+test = 70 size = 4096 in avg time = 32 clock cycles
+test = 68 size = 8192 in avg time = 32 clock cycles
+test = 71 size = 16384 in avg time = 33 clock cycles
+test = 6a size = 32768 in avg time = 32 clock cycles
+test = 75 size = 65536 in avg time = 32 clock cycles
+test = 72 size = 131072 in avg time = 33 clock cycles
+test = 6c size = 262144 in avg time = 33 clock cycles
+test = 79 size = 524288 in avg time = 33 clock cycles
+test = 61 size = 1048576 in avg time = 33 clock cycles
+test = 63 size = 2097152 in avg time = 33 clock cycles
+test = 67 size = 4194304 in avg time = 33 clock cycles
+test = 6f size = 8388608 in avg time = 33 clock cycles
+test = 66 size = 16777216 in avg time = 33 clock cycles
+
+--------------------stride = 2----------------------
+test = 74 size = 128 in avg time = 32 clock cycles
+test = 77 size = 256 in avg time = 33 clock cycles
+test = 64 size = 512 in avg time = 32 clock cycles
+test = 70 size = 1024 in avg time = 32 clock cycles
+test = 6f size = 2048 in avg time = 33 clock cycles
+test = 6d size = 4096 in avg time = 33 clock cycles
+test = 69 size = 8192 in avg time = 33 clock cycles
+test = 61 size = 16384 in avg time = 33 clock cycles
+test = 6a size = 32768 in avg time = 33 clock cycles
+test = 63 size = 65536 in avg time = 33 clock cycles
+test = 6e size = 131072 in avg time = 33 clock cycles
+test = 6b size = 262144 in avg time = 33 clock cycles
+test = 65 size = 524288 in avg time = 33 clock cycles
+test = 72 size = 1048576 in avg time = 33 clock cycles
+test = 73 size = 2097152 in avg time = 33 clock cycles
+test = 75 size = 4194304 in avg time = 33 clock cycles
+test = 79 size = 8388608 in avg time = 33 clock cycles
+test = 68 size = 16777216 in avg time = 33 clock cycles
+
+--------------------stride = 4----------------------
+test = 6f size = 128 in avg time = 33 clock cycles
+test = 64 size = 256 in avg time = 33 clock cycles
+test = 67 size = 512 in avg time = 35 clock cycles
+test = 6d size = 1024 in avg time = 33 clock cycles
+test = 79 size = 2048 in avg time = 32 clock cycles
+test = 78 size = 4096 in avg time = 33 clock cycles
+test = 76 size = 8192 in avg time = 32 clock cycles
+test = 72 size = 16384 in avg time = 32 clock cycles
+test = 6a size = 32768 in avg time = 33 clock cycles
+test = 73 size = 65536 in avg time = 33 clock cycles
+test = 6c size = 131072 in avg time = 33 clock cycles
+test = 77 size = 262144 in avg time = 33 clock cycles
+test = 74 size = 524288 in avg time = 33 clock cycles
+test = 6e size = 1048576 in avg time = 33 clock cycles
+test = 62 size = 2097152 in avg time = 33 clock cycles
+test = 63 size = 4194304 in avg time = 33 clock cycles
+test = 65 size = 8388608 in avg time = 33 clock cycles
+test = 69 size = 16777216 in avg time = 33 clock cycles
+
+--------------------stride = 8----------------------
+test = 79 size = 128 in avg time = 33 clock cycles
+test = 67 size = 256 in avg time = 33 clock cycles
+test = 75 size = 512 in avg time = 32 clock cycles
+test = 78 size = 1024 in avg time = 33 clock cycles
+test = 65 size = 2048 in avg time = 32 clock cycles
+test = 71 size = 4096 in avg time = 33 clock cycles
+test = 70 size = 8192 in avg time = 33 clock cycles
+test = 6e size = 16384 in avg time = 33 clock cycles
+test = 6a size = 32768 in avg time = 33 clock cycles
+test = 62 size = 65536 in avg time = 33 clock cycles
+test = 6b size = 131072 in avg time = 33 clock cycles
+test = 64 size = 262144 in avg time = 33 clock cycles
+test = 6f size = 524288 in avg time = 33 clock cycles
+test = 6c size = 1048576 in avg time = 33 clock cycles
+test = 66 size = 2097152 in avg time = 33 clock cycles
+test = 73 size = 4194304 in avg time = 33 clock cycles
+test = 74 size = 8388608 in avg time = 34 clock cycles
+test = 76 size = 16777216 in avg time = 33 clock cycles
+
+--------------------stride = 16----------------------
+test = 65 size = 128 in avg time = 32 clock cycles
+test = 75 size = 256 in avg time = 33 clock cycles
+test = 63 size = 512 in avg time = 34 clock cycles
+test = 71 size = 1024 in avg time = 32 clock cycles
+test = 74 size = 2048 in avg time = 34 clock cycles
+test = 61 size = 4096 in avg time = 36 clock cycles
+test = 6d size = 8192 in avg time = 32 clock cycles
+test = 6c size = 16384 in avg time = 32 clock cycles
+test = 6a size = 32768 in avg time = 33 clock cycles
+test = 66 size = 65536 in avg time = 36 clock cycles
+test = 77 size = 131072 in avg time = 37 clock cycles
+test = 67 size = 262144 in avg time = 37 clock cycles
+test = 79 size = 524288 in avg time = 36 clock cycles
+test = 6b size = 1048576 in avg time = 33 clock cycles
+test = 68 size = 2097152 in avg time = 33 clock cycles
+test = 62 size = 4194304 in avg time = 33 clock cycles
+test = 6f size = 8388608 in avg time = 33 clock cycles
+test = 70 size = 16777216 in avg time = 33 clock cycles
+
+--------------------stride = 32----------------------
+test = 74 size = 128 in avg time = 33 clock cycles
+test = 63 size = 256 in avg time = 33 clock cycles
+test = 73 size = 512 in avg time = 32 clock cycles
+test = 61 size = 1024 in avg time = 32 clock cycles
+test = 6f size = 2048 in avg time = 32 clock cycles
+test = 72 size = 4096 in avg time = 33 clock cycles
+test = 78 size = 8192 in avg time = 33 clock cycles
+test = 6b size = 16384 in avg time = 33 clock cycles
+test = 6a size = 32768 in avg time = 33 clock cycles
+test = 68 size = 65536 in avg time = 33 clock cycles
+test = 64 size = 131072 in avg time = 33 clock cycles
+test = 75 size = 262144 in avg time = 33 clock cycles
+test = 65 size = 524288 in avg time = 32 clock cycles
+test = 77 size = 1048576 in avg time = 33 clock cycles
+test = 69 size = 2097152 in avg time = 33 clock cycles
+test = 66 size = 4194304 in avg time = 33 clock cycles
+test = 79 size = 8388608 in avg time = 33 clock cycles
+test = 6d size = 16777216 in avg time = 33 clock cycles
+
+--------------------stride = 64----------------------
+test = 6f size = 128 in avg time = 34 clock cycles
+test = 73 size = 256 in avg time = 33 clock cycles
+test = 62 size = 512 in avg time = 33 clock cycles
+test = 72 size = 1024 in avg time = 33 clock cycles
+test = 79 size = 2048 in avg time = 33 clock cycles
+test = 6e size = 4096 in avg time = 32 clock cycles
+test = 71 size = 8192 in avg time = 33 clock cycles
+test = 77 size = 16384 in avg time = 33 clock cycles
+test = 6a size = 32768 in avg time = 32 clock cycles
+test = 69 size = 65536 in avg time = 38 clock cycles
+test = 67 size = 131072 in avg time = 32 clock cycles
+test = 63 size = 262144 in avg time = 32 clock cycles
+test = 74 size = 524288 in avg time = 32 clock cycles
+test = 64 size = 1048576 in avg time = 32 clock cycles
+test = 76 size = 2097152 in avg time = 32 clock cycles
+test = 68 size = 4194304 in avg time = 33 clock cycles
+test = 65 size = 8388608 in avg time = 33 clock cycles
+test = 78 size = 16777216 in avg time = 33 clock cycles
