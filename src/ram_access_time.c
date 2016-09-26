@@ -55,16 +55,17 @@ int main(int agrc, char *argv[])
 	//}
 	
 	test = 'b';
+	size = atol(argv[1]);
 
 	for(stride = 1; stride<=64; stride = stride*2) 
 	{
 		printf("\n--------------------stride = %d----------------------\n",stride);
-		for(size = 128; size<=MAX_SIZE; size = size*2)
-		{
-			for(i = 0; i< size; i = i + stride)
-			{
-				test_array[i] = 'a';
-			}
+		//for(size = 128; size<=MAX_SIZE; size = size*2)
+		//{
+			//for(i = 0; i< size; i = i + stride)
+			//{
+			//	test_array[i] = 'a';
+			//}
 			for(i = 0; i< size; i = i + stride)
 			{
 				asm volatile ("cpuid\n\t"
@@ -73,8 +74,10 @@ int main(int agrc, char *argv[])
 			  						"mov %%eax, %1\n\t"
 			  						: "=r" (cycles_high0), "=r" (cycles_low0)
 			  						:: "%rax", "%rbx", "%rcx", "%rdx");
-
-				test_array[i] = test;
+				
+				//doing back to back loads here
+				test_array[i] -= test; 
+				test_array[i] += test;
 
 				asm volatile ("rdtscp\n\t"
 		  	  						"mov %%edx, %0\n\t"
@@ -103,7 +106,7 @@ int main(int agrc, char *argv[])
 			sum =0;
 
 
-		}
+		//}
 	}
 
 	//while(test_array < (test_array+100))
