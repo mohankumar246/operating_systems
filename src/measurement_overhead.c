@@ -67,7 +67,7 @@ int main(int agrc, char *argv[])
 
 	avg = (sum/1000);
 
-	printf("Average measurement overhead time = %lu clock cycles \n",avg);
+	//printf("Average measurement overhead time = %lu clock cycles \n",avg);
 	a_cycles[m] = avg;	
 	mean_cycles += avg;
 
@@ -136,10 +136,10 @@ int main(int agrc, char *argv[])
 	cycles_with_loop = end-start;
 	
 	//printf("high0 = %d, high1 = %d, low0 = %d, low1 = %d\n",cycles_high0,cycles_high1,cycles_low0,cycles_low1);
-	printf("cycles taken with loop = %lu clock cycles\n",(cycles_with_loop/1000));
+	//printf("cycles taken with loop = %lu clock cycles\n",(cycles_with_loop/1000));
 
 	//printf("Thus the LOOP OVERHEAD = %llu clock cycles\n",(cycles_with_loop - cycles_without_loop));
-	a_cycles_loop[m] = cycles_with_loop/100; 
+	a_cycles_loop[m] = cycles_with_loop/1000; 
 	mean_cycles_loop += a_cycles_loop[m];
 	}
 
