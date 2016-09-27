@@ -10,7 +10,7 @@
 #include <time.h>
 #include <math.h>
 #define ITER 20
-#define CLOCK 1700
+#define CLOCK 1.7
 int main(int agrc, char *argv[])
 {
 	unsigned cycles_high0; 
@@ -154,8 +154,8 @@ int main(int agrc, char *argv[])
         var_cycles /= (ITER);
         var_cycles_loop /= (ITER);
 
-        printf("Mean time for measurement overhead %f micro s SD %f iterations %d\n",(double)mean_cycles/CLOCK,sqrt(var_cycles)/CLOCK,ITER);
-        printf("Mean time for loop overhead %f micro s SD %f iterations %d\n",(double)mean_cycles_loop/CLOCK,sqrt(var_cycles_loop)/CLOCK,ITER);
+        printf("Mean time for measurement overhead %f ns SD %f ns iterations %d\n",(double)mean_cycles/CLOCK,sqrt(var_cycles)/CLOCK,ITER);
+        printf("Mean time for loop overhead %f ns SD %f ns iterations %d\n",(double)mean_cycles_loop/CLOCK,sqrt(var_cycles_loop)/CLOCK,ITER);
 
 }
 

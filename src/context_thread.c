@@ -146,11 +146,13 @@ int main(int agrc, char *argv[])
 
     uint64_t total_cycles = (((uint64_t)end_h << 32) | end_l )-(((uint64_t)start_h << 32) | start_l);
 
-    //printf("Total cycles s creation %ld\n",total_cycles);
+    printf("Total cycles s creation %ld\n",total_cycles);
+if(i > 0)
+{
 	
     a_thrd_cycles[i] = total_cycles;
     mean_thrd_cycles += total_cycles;
-
+}
 	  if(pthread_create(&thread0, NULL, parent_thread,&pipe_pc_cp))
 	  {
 		  fprintf(stderr, "Error creating thread\n");
@@ -178,7 +180,7 @@ int main(int agrc, char *argv[])
   }
 
   {
-      mean_thrd_cycles /= (ITER);//-1);
+      mean_thrd_cycles /= (ITER-1);
       mean_cont_cycles /= (ITER);//-1);
 
       printf("\nMean Cycles Thrd %ld",mean_thrd_cycles);
@@ -186,11 +188,14 @@ int main(int agrc, char *argv[])
 
       for(i =0; i< ITER; i++)
       {
+	if(i>0)
+	{
           var_thrd_cycles += ((a_thrd_cycles[i] - mean_thrd_cycles)*(a_thrd_cycles[i] - mean_thrd_cycles));
-          var_cont_cycles += ((a_cont_cycles[i] - mean_cont_cycles)*(a_cont_cycles[i] - mean_cont_cycles));
+         }
+		 var_cont_cycles += ((a_cont_cycles[i] - mean_cont_cycles)*(a_cont_cycles[i] - mean_cont_cycles));
       }
 
-      var_thrd_cycles /= (ITER);//-1);
+      var_thrd_cycles /= (ITER-1);
       var_cont_cycles /= (ITER);//-1);
 
       printf("\nMean time for thrd creation %f micro s SDeviation %f iteratios %d\n",(float)mean_thrd_cycles/CLOCK,(float)sqrt(var_thrd_cycles)/CLOCK,ITER);

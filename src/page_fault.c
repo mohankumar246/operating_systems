@@ -14,6 +14,7 @@
 #include <fcntl.h>
 #include <time.h>
 //#include <sys/cachectl.h>
+#define CLOCK 1700
 
 int main(int agrc, char *argv[])
 {
@@ -69,7 +70,7 @@ int main(int agrc, char *argv[])
 	start = ( ((uint64_t)cycles_high0 << 32) | cycles_low0 ); 
    end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
 
-	printf("cycles mmap = %lu \n",(end-start));
+	printf("mmap = %lu cycles time %f micro s \n",(end-start),((float)end-start)/CLOCK);
 
 
 	if(op == MAP_FAILED)
@@ -102,7 +103,7 @@ int main(int agrc, char *argv[])
 
 		//printf("i = %d test = %c cycles page fault = %llu \n",i,test,(end-start));
 		if((end-start)>100)
-			printf("FOUND %lu %lu\n",i,(end-start));
+			printf("FOUND %lu %lu cycles: time  %f micro s\n",i,(end-start), ((float)(end-start))/1700);
 
 		// accessing next byte - should be a page hit
 		op++;
