@@ -38,5 +38,5 @@ Average measurement overhead time = 32 clock cycles
 cycles taken with loop = 6 clock cycles
 Average measurement overhead time = 32 clock cycles 
 cycles taken with loop = 6 clock cycles
-Mean time for measurement overhead 0.018824 micro s SD 0.000000 iterations 20
-Mean time for loop overhead 0.035294 micro s SD 0.000000 iterations 20
+Mean time for measurement overhead 18.823529 ns SD 0.000000 ns iterations 20
+Mean time for loop overhead 35.294118 ns SD 0.000000 ns iterations 20

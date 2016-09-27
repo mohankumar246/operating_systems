@@ -1,2 +1,2 @@
-Mean BW for memset 10976.205078 MB/s SDeviation 1089.937441 iteratios 19
-Mean BW for memcpy 4833.572754 MB/s SDeviation 175.537345 iteratios 19
+Mean BW for memset 10478.041016 MB/s SDeviation 1205.163267 iteratios 19
+Mean BW for memcpy 4722.650879 MB/s SDeviation 170.327700 iteratios 19

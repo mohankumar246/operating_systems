@@ -1,5 +1,5 @@
 
-Mean Cycles Proc 51527
-Mean Cycles Cont 2716
-Mean time for process creation 30.309999 micro s SDeviation 5.679393 iteratios 20
-Mean time for context switch 1.597647 micro s SDeviation 0.042569 iteratios 20
+Mean Cycles Proc 54553
+Mean Cycles Cont 2735
+Mean time for process creation 32.090000 micro s SDeviation 6.019464 iteratios 20
+Mean time for context switch 1.608824 micro s SDeviation 0.042528 iteratios 20

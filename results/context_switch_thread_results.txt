@@ -1,5 +1,25 @@
+Total cycles s creation 149036
+Total cycles s creation 14128
+Total cycles s creation 7616
+Total cycles s creation 6524
+Total cycles s creation 7544
+Total cycles s creation 6516
+Total cycles s creation 6684
+Total cycles s creation 6500
+Total cycles s creation 6632
+Total cycles s creation 6336
+Total cycles s creation 6864
+Total cycles s creation 6748
+Total cycles s creation 6020
+Total cycles s creation 6728
+Total cycles s creation 6352
+Total cycles s creation 6644
+Total cycles s creation 6320
+Total cycles s creation 7944
+Total cycles s creation 6412
+Total cycles s creation 6240
 
-Mean Cycles Thrd 13638
-Mean Cycles Cont 1883
-Mean time for thrd creation 8.022353 micro s SDeviation 15.933008 iteratios 20
-Mean time for context switch 1.107647 micro s SDeviation 0.009630 iteratios 20
+Mean Cycles Thrd 7092
+Mean Cycles Cont 2186
+Mean time for thrd creation 4.171765 micro s SDeviation 1.015713 iteratios 20
+Mean time for context switch 1.285882 micro s SDeviation 0.777937 iteratios 20

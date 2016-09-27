@@ -9,9 +9,9 @@
 #include <time.h>
 
 #define MB 1024*1024
-#define MAX_SIZE_MB 1024
+#define MAX_SIZE_MB 512 
 #define MAX_SIZE MAX_SIZE_MB*MB // 128MB
-#define MAX_STRIDE 2048*16
+#define MAX_STRIDE 2048*4
 #define CLOCK 1700
 
 #define O11 n = (volatile uint64_t**)*n;
@@ -41,7 +41,7 @@ int main(int agrc, char *argv[])
 		  : "=r" (cycles_high0), "=r" (cycles_low0)
 		  :: "%rax", "%rbx", "%rcx", "%rdx");
 
-	printf("%lu %lu\n",sizeof(uint64_t*),sizeof(uint64_t));
+//	printf("%lu %lu\n",sizeof(uint64_t*),sizeof(uint64_t));
 	for(uint64_t size = MB; size< MAX_SIZE; size *=2)
 	{
 		test_array = malloc(size);
@@ -69,7 +69,7 @@ int main(int agrc, char *argv[])
 		  		      : "=r" (cycles_high0), "=r" (cycles_low0)
 		  		      :: "%rax", "%rbx", "%rcx", "%rdx");
 				
-			for(count = 0; count < array_size;count++)
+			for(count = 0; count < (array_size/stride);count++)
 			{	
 				ONE_28	
 			}
@@ -84,8 +84,8 @@ int main(int agrc, char *argv[])
 			start = (((uint64_t)cycles_high0 << 32) | cycles_low0 ); 
 			end   = (((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
 			//printf("size = %d writing i=%d in time = %llu clock cycles\n",size, i,(end-start));
-			printf("Array size = %lu MB, Stride %lu, Time = %lu cycles, %f micro s\n",(size/(MB)), stride, (end-start)/array_size, 
-			((float)(end-start)/((float)((float)CLOCK*(float)array_size))));
+			printf("Array size = %lu MB, Stride %lu, Time = %f cycles, %f micro s\n",(size/(MB)), stride, (((float)(end-start))/((float)(array_size*128)/stride)), 
+			(float)(end-start)/(CLOCK*((float)(array_size*128)/stride)));
 		}
 		free(test_array);
 	}
