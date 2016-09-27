@@ -154,8 +154,10 @@ int main(int agrc, char *argv[])
         var_cycles /= (ITER);
         var_cycles_loop /= (ITER);
 
-        printf("Mean time for measurement overhead %f ns SD %f ns iterations %d\n",(double)mean_cycles/CLOCK,sqrt(var_cycles)/CLOCK,ITER);
-        printf("Mean time for loop overhead %f ns SD %f ns iterations %d\n",(double)mean_cycles_loop/CLOCK,sqrt(var_cycles_loop)/CLOCK,ITER);
+        printf("Mean time for measurement overhead %f ns, %lu cycles, SD %f ns %f cycles iterations %d\n",
+	(double)mean_cycles/CLOCK,mean_cycles,sqrt(var_cycles)/CLOCK,sqrt(var_cycles),ITER);
+        printf("Mean time for loop overhead %f ns, %lu cycles, SD %f ns %f cycles iterations %d\n",
+	(double)mean_cycles_loop/CLOCK,mean_cycles_loop,sqrt(var_cycles_loop)/CLOCK,sqrt(var_cycles),ITER);
 
 }
 
