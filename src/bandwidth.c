@@ -9,7 +9,9 @@
 #include <time.h>
 #include <string.h>
 #include <memory.h>
-#define SIZE 50*1024*1024
+#define MB 50
+#define SIZE MB*1024*1024
+
 #define SPEED 1700000000
 #define SPEEDMhz 1700
 #define ITER 20
@@ -45,7 +47,7 @@ int main(int agrc, char *argv[])
 
 		if(i > 0)
 		{
-			bw_memst[i]  = ((float)50 * SPEED)/time_c;
+			bw_memst[i]  = ((float)MB * SPEED)/time_c;
 			mean_memst    += bw_memst[i];
 		}
 //		printf("Time for memset %f, BW %f MB/s\n",(float)time_c/SPEED, ((float)50 * SPEED)/time_c);	 
@@ -71,7 +73,7 @@ int main(int agrc, char *argv[])
 
 		if(i > 0)
 		{
-			bw_memcp[i]  = ((float)50 * SPEED)/time_c;
+			bw_memcp[i]  = ((float)MB * SPEED)/time_c;
 			mean_memcp    += bw_memcp[i];
 		}
 

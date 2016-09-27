@@ -13,7 +13,7 @@
 #include <sys/wait.h>
 
 #define ITER 20 
-#define CLOCK 1700000000
+#define CLOCK 1700
 
 int main(int agrc, char *argv[])
 {
@@ -165,7 +165,7 @@ int main(int agrc, char *argv[])
 	    var_proc_cycles /= (ITER);//-1);
 	    var_cont_cycles /= (ITER);//-1);
 	    
-	    printf("\nMean time for process creation %f s SDeviation %f iteratios %d\n",(float)mean_proc_cycles/CLOCK,(float)sqrt(var_proc_cycles)/CLOCK,ITER);
-	    printf("Mean time for context switch %f s SDeviation %f iteratios %d\n",(float)mean_cont_cycles/CLOCK,(float)sqrt(var_cont_cycles)/CLOCK,ITER);
+	    printf("\nMean time for process creation %f micro s SDeviation %f iteratios %d\n",(float)mean_proc_cycles/CLOCK,(float)sqrt(var_proc_cycles)/CLOCK,ITER);
+	    printf("Mean time for context switch %f micro s SDeviation %f iteratios %d\n",(float)mean_cont_cycles/CLOCK,(float)sqrt(var_cont_cycles)/CLOCK,ITER);
 	}
 }

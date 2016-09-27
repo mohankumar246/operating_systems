@@ -5,15 +5,23 @@
 #include <stdlib.h>
 #include <stdint.h>
 #include <sched.h>
-//#include <preempt.h>
 #include <sys/syscall.h>
 #include <time.h>
-//#include <sys/cachectl.h>
 
-#define MAX_SIZE 16777216 // 8MB
-//#define MAX_SIZE 16384  // 32KB
+#define MB 1024*1024
+#define MAX_SIZE_MB 512 
+#define MAX_SIZE MAX_SIZE_MB*MB // 128MB
+#define MAX_STRIDE 2048*4
+#define CLOCK 1700
 
-volatile char test_array[MAX_SIZE];
+#define O11 n = (volatile uint64_t**)*n;
+#define T22 O11 O11
+#define F44 T22 T22 
+#define EE8 F44 F44
+#define OS6 EE8 EE8
+#define TH2 OS6 OS6
+#define S64 TH2 TH2
+#define ONE_28 S64 S64
 int main(int agrc, char *argv[])
 {
 	unsigned cycles_high0; 
@@ -21,13 +29,10 @@ int main(int agrc, char *argv[])
 	unsigned cycles_high1; 
 	unsigned cycles_low1; 
 	uint64_t start,end;
-
-	volatile char test;
-	register uint64_t i;
-	uint64_t size, stride;
-	uint64_t sum;
-	//int result;
-
+	register uint64_t count=0;
+	volatile uint64_t  **n;
+	uint64_t **test_array;
+	int array_size;
 	//Icache warmup
 	asm volatile ("cpuid\n\t"
 		  "rdtsc\n\t"
@@ -36,140 +41,54 @@ int main(int agrc, char *argv[])
 		  : "=r" (cycles_high0), "=r" (cycles_low0)
 		  :: "%rax", "%rbx", "%rcx", "%rdx");
 
-	//cpu_set_t mask;
-	////sched::CPU_ZERO(&mask);
-	//CPU_SET(0,&mask);
-	//result = sched_setaffinity(0,sizeof(mask),&mask);
-	sum = getpagesize();
-	printf("page size = %llu\n",sum);
-	sum = 0;
-
-
-	//int w = cacheflush();  // correct it 
-
-	//test_array = (char*) malloc(2048*sizeof(char));
-	//initialize
-	//for(i = 0; i<32768;i++)
-	//{
-	//	test_array[i] = 0;
-	//}
-	
-	test = 'b';
-	size = atol(argv[1]);
-
-	for(stride = 1; stride<=64; stride = stride*2) 
+//	printf("%lu %lu\n",sizeof(uint64_t*),sizeof(uint64_t));
+	for(uint64_t size = MB; size< MAX_SIZE; size *=2)
 	{
-		printf("\n--------------------stride = %d----------------------\n",stride);
-		//for(size = 128; size<=MAX_SIZE; size = size*2)
-		//{
-			//for(i = 0; i< size; i = i + stride)
-			//{
-			//	test_array[i] = 'a';
-			//}
-			for(i = 0; i< size; i = i + stride)
+		test_array = malloc(size);
+		array_size = size/sizeof(uint64_t);
+		//printf("\n---------- array size = %lu ----------\n",array_size);
+		printf("\n---------------------\n");
+		for(uint64_t stride = 1; stride <= MAX_STRIDE; stride = stride*2) 
+		{
+			for(uint64_t index=0; index < array_size; index++)
 			{
-				asm volatile ("cpuid\n\t"
-			  						"rdtsc\n\t"
-			  						"mov %%edx, %0\n\t"
-			  						"mov %%eax, %1\n\t"
-			  						: "=r" (cycles_high0), "=r" (cycles_low0)
-			  						:: "%rax", "%rbx", "%rcx", "%rdx");
+				test_array[index] = (uint64_t*)&test_array[(index+stride)%array_size];
+			}				
+
+			//printf("%llu %llu %llu %llu \n",&test_array[0],&test_array[1],test_array[0],test_array[1]);
+
+			n = (volatile uint64_t **)&test_array[0];		
+			
+			//printf("%llu %llu %llu\n",n,*n,(int**)*n);
+
+			//printf("\n----------stride = %lu ----------\n",stride);
+			asm volatile ("cpuid\n\t"
+		  		      "rdtsc\n\t"
+		  		      "mov %%edx, %0\n\t"
+		  		      "mov %%eax, %1\n\t"
+		  		      : "=r" (cycles_high0), "=r" (cycles_low0)
+		  		      :: "%rax", "%rbx", "%rcx", "%rdx");
 				
-				//doing back to back loads here
-				test_array[i] -= test; 
-				test_array[i] += test;
-
-				asm volatile ("rdtscp\n\t"
-		  	  						"mov %%edx, %0\n\t"
-		  	  						"mov %%eax, %1\n\t"
-		  	  						"cpuid\n\t"
-		  	  						: "=r" (cycles_high1), "=r" (cycles_low1)
-		  	  						:: "%rax", "%rbx", "%rcx", "%rdx");
-				start = ( ((uint64_t)cycles_high0 << 32) | cycles_low0 ); 
-   			end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
-				//printf("size = %d writing i=%d in time = %llu clock cycles\n",size, i,(end-start));
-				sum = sum + (end-start);
-				if(test_array[i] == 'Z')
-				{
-					printf("bug found");
-				}
-				else
-				{
-					test++;
-					if(test == 'z')
-						test = 'a';
-				}
-
+			for(count = 0; count < (array_size/stride);count++)
+			{	
+				ONE_28	
 			}
-			sum = ((sum*stride) / size);
-			printf("test = %x size = %d in avg time = %llu clock cycles\n",test,size,sum);
-			sum =0;
 
+			asm volatile ("rdtscp\n\t"
+	  	  		      "mov %%edx, %0\n\t"
+	  	  		      "mov %%eax, %1\n\t"
+	  	  		      "cpuid\n\t"
+	  	  		      : "=r" (cycles_high1), "=r" (cycles_low1)
+	  	  		      :: "%rax", "%rbx", "%rcx", "%rdx");
 
-		//}
+			start = (((uint64_t)cycles_high0 << 32) | cycles_low0 ); 
+			end   = (((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
+			//printf("size = %d writing i=%d in time = %llu clock cycles\n",size, i,(end-start));
+			printf("Array size = %lu MB, Stride %lu, Time = %f cycles, %f micro s\n",(size/(MB)), stride, (((float)(end-start))/((float)(array_size*128)/stride)), 
+			(float)(end-start)/(CLOCK*((float)(array_size*128)/stride)));
+		}
+		free(test_array);
 	}
-
-	//while(test_array < (test_array+100))
-	//for(i = 0; i<10;i++)
-	//{
-	//	//preempt_disable();
-	//	asm volatile ("cpuid\n\t"
-	//		  "rdtsc\n\t"
-	//		  "mov %%edx, %0\n\t"
-	//		  "mov %%eax, %1\n\t"
-	//		  : "=r" (cycles_high0), "=r" (cycles_low0)
-	//		  :: "%rax", "%rbx", "%rcx", "%rdx");
-	//	
-	//	test_array[0] = 'a';
-   //	
-	//	asm volatile ("rdtscp\n\t"
-	//	  	  "mov %%edx, %0\n\t"
-	//	  	  "mov %%eax, %1\n\t"
-	//	  	  "cpuid\n\t"
-	//	  	  : "=r" (cycles_high1), "=r" (cycles_low1)
-	//	  	  :: "%rax", "%rbx", "%rcx", "%rdx");
-
-	//	//preempt_enable();
-	//	start = ( ((uint64_t)cycles_high0 << 32) | cycles_low0 ); 
-   //	end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
-
-	//	//printf("high0 = %d, high1 = %d, low0 = %d, low1 = %d\n",cycles_high0,cycles_high1,cycles_low0,cycles_low1);
-	//	printf("write test array %x time = %llu clock cycles\n",test_array,(end-start));
-
-
-	//	asm volatile ("cpuid\n\t"
-	//		  "rdtsc\n\t"
-	//		  "mov %%edx, %0\n\t"
-	//		  "mov %%eax, %1\n\t"
-	//		  : "=r" (cycles_high0), "=r" (cycles_low0)
-	//		  :: "%rax", "%rbx", "%rcx", "%rdx");
-
-	//	test = test_array[0];
-	//	
-	//	asm volatile ("rdtscp\n\t"
-	//	  	  "mov %%edx, %0\n\t"
-	//	  	  "mov %%eax, %1\n\t"
-	//	  	  "cpuid\n\t"
-	//	  	  : "=r" (cycles_high1), "=r" (cycles_low1)
-	//	  	  :: "%rax", "%rbx", "%rcx", "%rdx");
-
-
-	//	//preempt_enable();
-	//	start = ( ((uint64_t)cycles_high0 << 32) | cycles_low0 ); 
-   //	end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
-
-	//	//printf("high0 = %d, high1 = %d, low0 = %d, low1 = %d\n",cycles_high0,cycles_high1,cycles_low0,cycles_low1);
-	//	printf("read test array %x time = %llu clock cycles\n",test_array,(end-start));
-
-	//	//test_array++;
-
-	//}
-
-
-   //free(test_array);
-
-
-
 }
 
 #endif
