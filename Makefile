@@ -21,7 +21,14 @@ page_fault: ./src/page_fault.c
 	objdump -D ./obj/page_fault > ./dump/page_fault.dump
 
 procedure_call: ./src/procedure_call.c
-	$(CC) -g -O0 ./src/procedure_call.c -o ./obj/procedure_call
+	$(CC) -g -O0 ./src/procedure_call0.c -o ./obj/procedure_call0
+	$(CC) -g -O0 ./src/procedure_call1.c -o ./obj/procedure_call1
+	$(CC) -g -O0 ./src/procedure_call2.c -o ./obj/procedure_call2
+	$(CC) -g -O0 ./src/procedure_call3.c -o ./obj/procedure_call3
+	$(CC) -g -O0 ./src/procedure_call4.c -o ./obj/procedure_call4
+	$(CC) -g -O0 ./src/procedure_call5.c -o ./obj/procedure_call5
+	$(CC) -g -O0 ./src/procedure_call6.c -o ./obj/procedure_call6
+	$(CC) -g -O0 ./src/procedure_call7.c -o ./obj/procedure_call7
 	objdump -D ./obj/procedure_call > ./dump/procedure_call.dump
 
 ram_access_time: ./src/ram_access_time.c
