@@ -12,7 +12,7 @@
 #include <math.h>
 
 #define ITER 20
-#define CLOCK 1700000000
+#define CLOCK 1700
 
 typedef struct pipe_args
 {
@@ -193,8 +193,8 @@ int main(int agrc, char *argv[])
       var_thrd_cycles /= (ITER);//-1);
       var_cont_cycles /= (ITER);//-1);
 
-      printf("\nMean time for thrd creation %f s SDeviation %f iteratios %d\n",(float)mean_thrd_cycles/CLOCK,(float)sqrt(var_thrd_cycles)/CLOCK,ITER);
-      printf("Mean time for context switch %f s SDeviation %f iteratios %d\n",(float)mean_cont_cycles/CLOCK,(float)sqrt(var_cont_cycles)/CLOCK,ITER);
+      printf("\nMean time for thrd creation %f micro s SDeviation %f iteratios %d\n",(float)mean_thrd_cycles/CLOCK,(float)sqrt(var_thrd_cycles)/CLOCK,ITER);
+      printf("Mean time for context switch %f micro s SDeviation %f iteratios %d\n",(float)mean_cont_cycles/CLOCK,(float)sqrt(var_cont_cycles)/CLOCK,ITER);
   }
 	
 	return 0;

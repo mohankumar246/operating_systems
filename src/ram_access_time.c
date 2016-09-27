@@ -41,7 +41,7 @@ int main(int agrc, char *argv[])
 	//CPU_SET(0,&mask);
 	//result = sched_setaffinity(0,sizeof(mask),&mask);
 	sum = getpagesize();
-	printf("page size = %llu\n",sum);
+	printf("page size = %lu\n",sum);
 	sum = 0;
 
 
@@ -59,7 +59,7 @@ int main(int agrc, char *argv[])
 
 	for(stride = 1; stride<=64; stride = stride*2) 
 	{
-		printf("\n--------------------stride = %d----------------------\n",stride);
+		printf("\n--------------------stride = %lu----------------------\n",stride);
 		//for(size = 128; size<=MAX_SIZE; size = size*2)
 		//{
 			//for(i = 0; i< size; i = i + stride)
@@ -102,7 +102,7 @@ int main(int agrc, char *argv[])
 
 			}
 			sum = ((sum*stride) / size);
-			printf("test = %x size = %d in avg time = %llu clock cycles\n",test,size,sum);
+			printf("test = %x size = %lu in avg time = %lu clock cycles\n",test,size,sum);
 			sum =0;
 
 

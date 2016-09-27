@@ -59,7 +59,7 @@ int main(int agrc, char *argv[])
    end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
 
 	//printf("high0 = %d, high1 = %d, low0 = %d, low1 = %d\n",cycles_high0,cycles_high1,cycles_low0,cycles_low1);
-	printf("syscall dup overhead time = %llu clock cycles\n",(end-start));
+	printf("syscall dup overhead time = %lu clock cycles\n",(end-start));
 	if(sys == -1)
 		printf("FAILED\n");
 

@@ -1,1 +1,1 @@
-syscall dup overhead time = 2300 clock cycles
+syscall dup overhead time = 2424 clock cycles
