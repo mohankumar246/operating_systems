@@ -84,7 +84,7 @@ int main(int agrc, char *argv[])
 	call_overhead = (call_overhead/100);
 	ret_overhead = (ret_overhead/100);
 
-	printf("call overhead = %d, ret overhead = %d\n",call_overhead,ret_overhead);
+	printf("call overhead = %lu, ret overhead = %lu\n",call_overhead,ret_overhead);
 	printf("Average measurement overhead time for call = %lu clock cycles \n",(call_overhead+ret_overhead));
 
 
