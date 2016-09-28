@@ -9,7 +9,7 @@
 #include <time.h>
 
 #define MB 1024*1024
-#define MAX_SIZE_MB 512 
+#define MAX_SIZE_MB 128 
 #define MAX_SIZE MAX_SIZE_MB*MB // 128MB
 #define MAX_STRIDE 2048*4
 #define CLOCK 1700
@@ -42,7 +42,7 @@ int main(int agrc, char *argv[])
 		  :: "%rax", "%rbx", "%rcx", "%rdx");
 
 //	printf("%lu %lu\n",sizeof(uint64_t*),sizeof(uint64_t));
-	for(uint64_t size = MB; size< MAX_SIZE; size *=2)
+	for(uint64_t size = 64*1024; size< MAX_SIZE; size *=2)
 	{
 		test_array = malloc(size);
 		array_size = size/sizeof(uint64_t);
@@ -69,11 +69,14 @@ int main(int agrc, char *argv[])
 		  		      : "=r" (cycles_high0), "=r" (cycles_low0)
 		  		      :: "%rax", "%rbx", "%rcx", "%rdx");
 				
-			for(count = 0; count < (array_size/stride);count++)
-			{	
-				ONE_28	
+			for(int iter=0;iter<5;iter++)
+			{
+				n = (volatile uint64_t **)&test_array[0];		
+				for(count = 0; count < (array_size/stride);count++)
+				{	
+					ONE_28	
+				}
 			}
-
 			asm volatile ("rdtscp\n\t"
 	  	  		      "mov %%edx, %0\n\t"
 	  	  		      "mov %%eax, %1\n\t"
@@ -83,9 +86,14 @@ int main(int agrc, char *argv[])
 
 			start = (((uint64_t)cycles_high0 << 32) | cycles_low0 ); 
 			end   = (((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
+			
+			float total = end-start;
+
+			if(total < 0)
+				printf("error");
 			//printf("size = %d writing i=%d in time = %llu clock cycles\n",size, i,(end-start));
-			printf("Array size = %lu MB, Stride %lu, Time = %f cycles, %f micro s\n",(size/(MB)), stride, (((float)(end-start))/((float)(array_size*128)/stride)), 
-			(float)(end-start)/(CLOCK*((float)(array_size*128)/stride)));
+			printf("Array size = %f MB, Stride %lu, Time = %f cycles, %f micro s\n",((float)size/(MB)), stride,
+			(total*stride)/(5*((float)(array_size))*128),(total*stride)/(5*CLOCK*((float)(array_size*128))));
 		}
 		free(test_array);
 	}
