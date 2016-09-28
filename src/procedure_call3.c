@@ -78,14 +78,14 @@ int main(int agrc, char *argv[])
    	end = ( ((uint64_t)cycles_high1 << 32) | cycles_low1 ); 
 
 		//printf("high0 = %d, high1 = %d, low0 = %d, low1 = %d\n",cycles_high0,cycles_high1,cycles_low0,cycles_low1);
-		//printf("call4 overhead = %llu clock cycles\n",(end-start));
+		//printf("call4 overhead = %lu clock cycles\n",(end-start));
 		ret_overhead = ret_overhead + (end - start);
 	}
 	call_overhead = (call_overhead/100);
 	ret_overhead = (ret_overhead/100);
 
 	printf("call overhead = %d, ret overhead = %d\n",call_overhead,ret_overhead);
-	printf("Average measurement overhead time for call = %llu clock cycles \n",(call_overhead+ret_overhead));
+	printf("Average measurement overhead time for call = %lu clock cycles \n",(call_overhead+ret_overhead));
 
 
 }
