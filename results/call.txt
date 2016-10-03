@@ -1,4 +1,0 @@
-Cycles - Call overhead = 56, Ret overhead = 34
-Cycles - Average measurement overhead time for call = 90 
-Time micro s - Call overhead = 0.032941, Ret overhead = 0.020000
-Time micro s - Average measurement overhead time for call = 0.052941 
